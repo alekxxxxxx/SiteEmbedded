@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --pcb-fr4: #050b14;
+  --pcb-track: #0a1a2f;
+  --pcb-copper: #ff6b00;
+  --pcb-tin: #00d2ff;
+  --pcb-mask-a: #00ff88;
+  --pcb-mask-b: #ff0055;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--pcb-fr4);
+  color: #f4f7ff;
+}
+
+.engineer-cursor {
+  cursor: crosshair;
+}
+
+.glow-text {
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.35),
+    0 0 18px rgba(0, 210, 255, 0.12);
+}
+
+.scope-magnify {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.scope-magnify:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.12);
+}
+
+@keyframes scope-drift {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-scope-drift {
+  stroke-dasharray: 6 4;
+  animation: scope-drift 3.5s linear infinite;
+}
+
+@keyframes pick-place-x {
+  0% {
+    left: 6%;
+  }
+  50% {
+    left: 52%;
+  }
+  100% {
+    left: 88%;
+  }
+}
+
+.pick-head {
+  animation: pick-place-x 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scope-drift,
+  .pick-head {
+    animation: none;
+  }
+
+  .scope-magnify:hover {
+    transform: none;
+  }
 }
