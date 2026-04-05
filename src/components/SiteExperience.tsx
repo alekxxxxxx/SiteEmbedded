@@ -13,23 +13,19 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { useEffect, useState } from "react";
 
+/** Только если WebGL недоступен — не отключаем «полный» режим по ширине экрана (на телефонах тоже нужны анимации). */
 function useLiteMode() {
   const [lite, setLite] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    const gpu = () => {
+    queueMicrotask(() => {
       try {
         const c = document.createElement("canvas");
         const gl = c.getContext("webgl");
-        return !gl;
+        setLite(!gl);
       } catch {
-        return true;
+        setLite(true);
       }
-    };
-    const update = () => setLite(mq.matches || gpu());
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
+    });
   }, []);
   return lite;
 }

@@ -218,7 +218,8 @@ export function TitleTraceCanvas({ className, lite, onComplete }: Props) {
   useEffect(() => {
     onCompleteRef.current = onComplete;
     completeRef.current = false;
-    phaseRef.current = lite ? "solid" : "anim";
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    phaseRef.current = lite || reduceMotion ? "solid" : "anim";
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -289,7 +290,7 @@ export function TitleTraceCanvas({ className, lite, onComplete }: Props) {
     const ro = new ResizeObserver(redrawIfSolid);
     if (canvas.parentElement) ro.observe(canvas.parentElement);
 
-    if (lite || groups.length === 0) {
+    if (lite || reduceMotion || groups.length === 0) {
       finish();
       return () => {
         ro.disconnect();

@@ -47,7 +47,7 @@ function Wave({ kind }: { kind: ProjectWave }) {
 function WavePanel({ channel, title, wave }: { channel: string; title: string; wave: ProjectWave }) {
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+      <div className="flex min-h-[6.75rem] min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 md:min-h-0">
         <span className="shrink-0 rounded border border-[#00D2FF]/40 px-2 py-0.5 font-mono text-xs text-[#00D2FF]">
           {channel}
         </span>
@@ -152,7 +152,7 @@ export function PortfolioSection() {
 
         <div
           ref={scrollerRef}
-          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-visible pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="mt-12 flex snap-x snap-mandatory items-stretch gap-6 overflow-x-auto overflow-y-visible pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="region"
           aria-label="Кейсы и проекты"
         >
@@ -164,14 +164,14 @@ export function PortfolioSection() {
                 variant={cardMotion[i % cardMotion.length]}
                 delay={0.04 + (i % 5) * 0.07}
                 amount={0.12}
-                className="shrink-0 snap-center"
+                className="flex w-[min(88vw,400px)] max-w-[400px] shrink-0 snap-center md:w-auto md:max-w-none"
               >
                 <article
                   data-portfolio-card
-                  className="group relative w-[min(88vw,400px)] rounded-xl border border-[#0A1A2F] bg-[#050B14]/95 shadow-lg transition-[width,box-shadow,border-color] duration-500 ease-out hover:border-[#FF6B00]/40 hover:shadow-[0_16px_48px_rgba(0,0,0,0.35)] md:w-[min(88vw,420px)] md:overflow-hidden md:hover:z-20 md:hover:w-[min(900px,calc(100vw-5rem))]"
+                  className="group relative flex min-h-0 w-full flex-col overflow-hidden rounded-xl border border-[#0A1A2F] bg-[#050B14]/95 shadow-lg transition-[width,box-shadow,border-color] duration-500 ease-out hover:border-[#FF6B00]/40 hover:shadow-[0_16px_48px_rgba(0,0,0,0.35)] md:min-h-[260px] md:w-[min(88vw,420px)] md:overflow-hidden md:hover:z-20 md:hover:w-[min(900px,calc(100vw-5rem))]"
                 >
                 {/* Mobile */}
-                <div className="md:hidden">
+                <div className="flex min-h-0 flex-1 flex-col md:hidden">
                   <div className="p-4">
                     <WavePanel channel={p.channel} title={p.title} wave={p.wave} />
                     <p className="mt-3 text-pretty font-mono text-xs leading-relaxed text-[#00FF88]/85 break-words">
